@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net452</TargetFramework>
+    <AssemblyName>Sitecore.CrmCampaignIntegration</AssemblyName>
+    <PackageId>Sitecore.CrmCampaignIntegration</PackageId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.4.6" />
+    <PackageReference Include="CRMSecurityProvider.NoReferences" Version="2.3.170118" />
+    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.160729" />
+    <PackageReference Include="Sitecore.Client.NoReferences" Version="8.2.160729" />
+    <PackageReference Include="Sitecore.Forms.Core.NoReferences" Version="8.2.170807" />
+    <PackageReference Include="Sitecore.WFFM.Abstractions.NoReferences" Version="8.2.170807" />
+    <PackageReference Include="Sitecore.WFFM.Actions.NoReferences" Version="8.2.170807" />
+    <Reference Include="..\..\Lib\ComponentArt.Web.UI.dll" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+</Project>

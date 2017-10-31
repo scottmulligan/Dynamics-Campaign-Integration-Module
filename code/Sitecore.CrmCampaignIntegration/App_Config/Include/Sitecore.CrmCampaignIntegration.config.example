@@ -1,0 +1,16 @@
+<configuration xmlns:patch="http://www.sitecore.net/xmlconfig/" xmlns:x="http://www.sitecore.net/xmlconfig/">
+  <sitecore>
+    <pipelines>   
+
+      <setCustomCrmProperty>        
+      </setCustomCrmProperty>
+      
+      <setSystemCrmProperty>
+        <processor type="Sitecore.Form.Core.Pipelines.Crm.SetStateAndStatusProperty, Sitecore.Forms.Core"/>
+      </setSystemCrmProperty>
+
+    </pipelines>
+
+  </sitecore>
+
+</configuration>

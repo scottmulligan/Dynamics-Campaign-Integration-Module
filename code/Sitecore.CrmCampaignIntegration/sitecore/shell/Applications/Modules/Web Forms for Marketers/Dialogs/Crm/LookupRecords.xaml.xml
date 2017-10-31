@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xamlControls
+  xmlns:x="http://www.sitecore.net/xaml"
+  xmlns:ajax="http://www.sitecore.net/ajax"
+  xmlns:rest="http://www.sitecore.net/rest"
+  xmlns:javascript="http://www.sitecore.net/javascript"
+  xmlns:r="http://www.sitecore.net/renderings"
+  xmlns:xmlcontrol="http://www.sitecore.net/xmlcontrols"
+  xmlns:p="http://schemas.sitecore.net/Visual-Studio-Intellisense"
+  xmlns:asp="http://www.sitecore.net/microsoft/webcontrols"
+  xmlns:html="http://www.sitecore.net/microsoft/htmlcontrols"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+  <Sitecore.CrmCampaignIntegration.Shell.UI.Dialogs.LookupRecords x:inherits="Sitecore.CrmCampaignIntegration.Shell.UI.Dialogs.LookupRecordsPage, Sitecore.CrmCampaignIntegration">
+    <Sitecore.Controls.DialogPage Icon="Applications/24x24/view.png" runat="server">
+      <x:register assembly="ComponentArt.Web.UI" namespace="ComponentArt.Web.UI"/>
+
+      <Stylesheet Src="Grid.css" DeviceDependant="true" runat="server" />
+      <Script runat="server">
+        function OnResize() {
+
+        var doc = $(document.documentElement);
+        var grid = $("GridContainer");
+        var entities=null;
+
+        //check id for 7.x and 8.x versions
+        if ($("ctl00_ctl00_ctl00_ctl00_ctl05_Entities_dom")!=null)
+        entities=$("ctl00_ctl00_ctl00_ctl00_ctl05_Entities_dom");
+        else
+        if ($("ctl00_ctl00_ctl00_ctl00_ctl04_Entities_dom")!=null)
+        entities=$("ctl00_ctl00_ctl00_ctl00_ctl04_Entities_dom");
+
+        grid.style.width = doc.getWidth()-20 + 'px';
+        entities.style.width = $("GridContainer").getDimensions().width + "px";
+
+        Entities.render();
+        }
+
+        window.onresize = OnResize;
+
+        function onDoubleClick(sender, eventArgs) {
+        scForm.postEvent(this,event,'OK_Click');
+        }
+
+        function OnChangeType(sender)
+        {
+        Entities.callback("0&amp;type=" + sender.value);
+        }
+
+      </Script>
+
+      <AjaxScriptManager runat="server"/>
+      <ContinuationManager runat="server" />
+
+      <table style="width: 100%; height: 100%; padding: 0; border-spacing: 0">
+        <tr style="height: 20px">
+          <td style="vertical-align: center;">
+            <Literal runat="server" ID="LookForLiteral" Style="height: 24px" Padding="5px 0 0 0"/>
+          </td>
+          <td style="vertical-align: center;">
+            <asp:DropDownList ID="TargetTypesList" runat="server" AutoPostBack="True" Width="200px" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="vertical-align: top;">
+            <br/>
+            <Border ID="GridContainer" runat="server" style="width: 100%; height: 95%">
+
+              <Grid id="Entities"
+				        Height="101%"
+                Visible="true"
+                AllowHorizontalScrolling="true"
+                AllowMultipleSelect="false"
+                RunningMode="Callback"
+                CssClass="Grid"
+                FillContainer="false"
+                ShowHeader="true"
+                HeaderCssClass="GridHeader"
+                AutoFocusSearchBox="false"
+            
+                ManualPaging="true"
+                FooterCssClass="GridFooter"
+
+                GroupByCssClass="GroupByCell"
+                GroupByTextCssClass="GroupByText"
+                GroupBySortAscendingImageUrl="group_asc.gif"
+                GroupBySortDescendingImageUrl="group_desc.gif"
+                GroupBySortImageWidth="10"
+                GroupBySortImageHeight="10"
+
+                GroupingNotificationTextCssClass="GridHeaderText"
+                GroupingPageSize="5"
+            
+                PagerStyle="Slider"
+            
+                PagerButtonWidth="41"
+                PagerButtonHeight="22"
+                PagerImagesFolderUrl="/sitecore/shell/themes/standard/componentart/grid/pager/"
+            
+                ShowSearchBox="true"
+                SearchTextCssClass="GridHeaderText"
+                SearchBoxCssClass="SearchBox"
+      	    
+                SliderHeight="20"
+                SliderWidth="150"
+                SliderGripWidth="9"
+                SliderPopupOffsetX="20"
+                SliderPopupClientTemplateId="SliderTemplate"
+            
+                TreeLineImagesFolderUrl="/sitecore/shell/themes/standard/componentart/grid/lines/"
+                TreeLineImageWidth="22"
+                TreeLineImageHeight="19"
+            
+                PreExpandOnGroup="false"
+                ImagesBaseUrl="/sitecore/shell/themes/standard/componentart/grid/"
+                IndentCellWidth="22"
+                           
+                PagerTextCssClass="PagerText"
+                PageSize="15"
+                
+                ClientSideOnDoubleClick="onDoubleClick"
+                
+                LoadingPanelEnabled="true"
+                LoadingPanelClientTemplateId="LoadingFeedbackTemplate"
+                LoadingPanelPosition="MiddleCenter"
+                LoadingPanelFadeDuration="1000"
+                LoadingPanelFadeMaximumOpacity="60"
+                      
+                runat="server">
+
+                <Levels>
+                  <GridLevel
+                    DataKeyField="ID"
+                    ShowTableHeading="false"
+                    ShowSelectorCells="false"
+                    RowCssClass="Row"
+                    ColumnReorderIndicatorImageUrl="reorder.gif"
+                    DataCellCssClass="DataCell"
+                    HeadingCellCssClass="HeadingCell"
+                    HeadingCellHoverCssClass="HeadingCellHover"
+                    HeadingCellActiveCssClass="HeadingCellActive"
+                    HeadingRowCssClass="HeadingRow"
+                    HeadingTextCssClass="HeadingCellText"
+                    SelectedRowCssClass="SelectedRow"
+                    GroupHeadingCssClass="GroupHeading"
+                    SortAscendingImageUrl="asc.gif"
+                    SortDescendingImageUrl="desc.gif"
+                    SortImageWidth="13"
+                    SortImageHeight="13"
+                    runat="server">
+                    <Columns runat="server">
+                      <GridColumn DataField="ID" Visible="false" runat="server"/>
+                    </Columns>
+                  </GridLevel>
+                </Levels>
+
+                <ClientTemplates>
+                  <ClientTemplate runat="server" Id="LoadingFeedbackTemplate">
+                    <table height="280" width="450" bgcolor="#e0e0e0">
+                      <tr>
+                        <td valign="center" align="center">
+                          <table cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                              <td style="font-size:10px;font-family:Verdana;">Loading...&amp;nbsp;</td>
+                              <td>
+                                <img src="/sitecore/shell/Themes/Standard/Default/WFM/ComponentArt/images/spinner.gif" width="16" height="16" border="0" />
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </ClientTemplate>
+
+                  <ClientTemplate Id="LocalNameTemplate" runat="server">
+                  </ClientTemplate>
+
+                  <ClientTemplate Id="SliderTemplate" runat="server">
+                    <table class="SliderPopup" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td>
+                          <div style="padding:4px;font:8pt tahoma;white-space:nowrap;overflow:hidden"></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="height:14px;background-color:#666666;padding:1px 8px 1px 8px;color:white">
+                          ## DataItem.PageIndex + 1 ## / ## Entities.PageCount ##
+                        </td>
+                      </tr>
+                    </table>
+                  </ClientTemplate>
+
+                </ClientTemplates>
+              </Grid>
+            </Border>
+          </td>
+        </tr>
+      </table>
+
+    </Sitecore.Controls.DialogPage>
+  </Sitecore.CrmCampaignIntegration.Shell.UI.Dialogs.LookupRecords>
+
+</xamlControls>

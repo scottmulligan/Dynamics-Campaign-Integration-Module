@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xamlControls
+  xmlns:x="http://www.sitecore.net/xaml"
+  xmlns:ajax="http://www.sitecore.net/ajax"
+  xmlns:rest="http://www.sitecore.net/rest"
+  xmlns:r="http://www.sitecore.net/renderings"
+  xmlns:xmlcontrol="http://www.sitecore.net/xmlcontrols"
+  xmlns:p="http://schemas.sitecore.net/Visual-Studio-Intellisense"
+  xmlns:asp="http://www.sitecore.net/microsoft/webcontrols"
+  xmlns:html="http://www.sitecore.net/microsoft/htmlcontrols"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:wfm="http://www.sitecore.net/wfm/webcontrols">
+
+  <Sitecore.CrmCampaignIntegration.Shell.UI.Dialogs.CreateContact x:inherits="Sitecore.CrmCampaignIntegration.Shell.UI.Dialogs.CreateCrmEntityPage, Sitecore.CrmCampaignIntegration">
+    <x:register assembly="ComponentArt.Web.UI" namespace="ComponentArt.Web.UI" />
+    <x:register assembly="Sitecore.CrmCampaignIntegration" namespace="Sitecore.CrmCampaignIntegration.Shell.UI.Controls"/>
+    <x:register assembly="Sitecore.Forms.Core" namespace="Sitecore.Forms.Shell.UI.Controls"/>
+    <x:register assembly="Sitecore.Client" namespace="Sitecore.Shell.Controls.Splitters"/>
+
+    <Sitecore.Controls.DialogPage Header="Create CRM Contact" Icon="Network/32x32/id_card_new.png" Text="Please select the values for the CRM fields you want to use to create the contact. You can also select under what conditions values should be entered and where those values should come from. If the contact already exists it will be updated." runat="server">
+      <Script Src="/sitecore/shell/Applications/Modules/Web Forms for Marketers/script/DynamicsCrm.CampaignIntegration.js" runat="server"/>
+      <body onload="$('Cancel').focus()">
+
+        <AjaxScriptManager runat="server"/>
+        <ContinuationManager runat="server" />
+
+        <Stylesheet Src="WFM/CrmDialogs.css" DeviceDependant="true" runat="server" />
+        <Stylesheet Src="WFM/ComboBoxWithNestedContent.css" DeviceDependant="true" runat="server" />
+
+        <html:HtmlInputHidden ID="MappedFields" runat="server" />
+
+        <table style="width: 100%; height: 100%; padding: 0; border-spacing: 0">
+          <tr>
+            <td style="vertical-align: top; width: 50%; padding: 5px">
+              <table style="width: 100%; height: 100%; padding: 0; border-spacing: 0">
+                <tr style="height: 1px">
+                  <td style="vertical-align: bottom;">
+                    <Toolbar runat="server" style="height:20px; background: #b0b0b0 repeat-x;">
+                      <Toolbutton ID="AddFieldsButton" runat="server" Icon="Applications/16x16/add.png" Click="OnRunFieldEditor"/>
+                      <Toolbutton ID="DeleteFieldsButton" runat="server" Icon="Applications/16x16/delete2.png" Click="OnRemoveSelectedNode"/>
+                    </Toolbar>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: top;">
+                    <Border ID="TreeViewBorder" runat="server" Height="100%">
+                      <TreeView ID="FieldsTree" DragAndDropEnabled="false"  Padding="0 0 0 0" Margin="0 0 0 0"
+                          Height="100%"
+                          NodeEditingEnabled="false"
+                          KeyboardEnabled="true"
+                          CssClass="TreeView"
+                          NodeCssClass="TreeNode"
+                          SelectedNodeCssClass="SelectedTreeNode"
+                          HoverNodeCssClass="HoverTreeNode"
+                          NodeEditCssClass="NodeEdit"
+                          Border ="0"
+                          LineImageWidth="19"
+                          LineImageHeight="20"
+                          DefaultImageWidth="16"
+                          DefaultImageHeight="16"
+                          ItemSpacing="0"
+                          LineImagesFolderUrl="/sitecore/shell/Themes/Standard/ComponentArt/Treeview/lines"
+                          ImagesBaseUrl="/sitecore/shell/Themes/Standard/ComponentArt/Treeview/"
+                          NodeLabelPadding="3"
+                          ShowLines="true"
+                          EnableViewState="false"
+                          runat="server"
+                          AutoScroll="true">
+
+                      </TreeView>
+
+                    </Border>
+                  </td>
+                </tr>
+              </table>
+            </td>
+
+            <td style="vertical-align: top; width: 50%; padding: 5px">
+              <Border runat="server">
+                <Border runat="server" style="border-bottom:1px solid grey;">
+                  <Literal runat="server" ID="FieldSettingsLiteral" Margin="0 0 5 0" style="font-weight:bold"/>
+                </Border>
+                <Border ID="SettingsBorder" runat="server" Padding="0 0 0 0" style="border-top :1 solid black">
+                  <Border ID="SettingsHolder" runat="server" Padding="20 0 0 20">
+                    <html:HtmlInputHidden ID="ActiveField" runat="server" />
+
+                    <GridPanel ID="SettingsGrid" runat="server" Width="90%"  Cellpadding="5"  Columns="2" vAlign="top" Padding="0 0 10 0">
+
+                      <Literal runat="server" ID="CompleteCrmFieldLiteral" GridPanel.Width="35%" Style="height:24px" Padding="5 0 0 0"/>
+                      <Border runat="server" GridPanel.Width="65%" Width="100%" Margin="0" >
+                        <Literal ID="AlwaysMarker" runat="server"  Style="height:24px" Padding="5 0 0 0"/>
+
+                        <Border ID="EditModeHolder" runat="server" >
+                          <ComboBox ID="ModeCombobox"
+                                    runat="server"
+                                    KeyboardEnabled="false"
+                                    AutoFilter="false"
+                                    AutoHighlight="false"
+                                    AutoComplete="false"
+                                    DropHoverImageUrl="/sitecore/shell/Themes/Standard/Default/WFM/ComponentArt/images/ddn-hover.png"
+                                    DropImageUrl="/sitecore/shell/Themes/Standard/Default/WFM/ComponentArt/images/ddn.png"
+                                    Width="332"
+                                    Height="18"
+                                    DropDownWidth="332"
+                                    DropDownHeight="230"
+                                    DropDownOffsetY="2"
+                                    DropDownOffsetX="0"
+                                    ItemCssClass="ddn-item"
+                                    ItemHoverCssClass="ddn-item-hover"
+                                    CssClass="cmb"
+                                    HoverCssClass="cmb-hover"
+                                    TextBoxCssClass="txt"
+                                    DropDownResizingMode="bottom"
+                                    DropDownCssClass="ddn"
+                                    DropDownContentCssClass="ddn-con"
+                                    Margin="0 0 0 3"
+                                    CollapseDuration="0">
+                            <DropDownContent>
+                              <ComboBoxContent runat="server">
+                                <ControlledChecklist ID="EditModeList" runat="server" ClientSideOnNodeStateChanged="OnItemStateChanged"/>
+                              </ComboBoxContent>
+                            </DropDownContent>
+                          </ComboBox>
+                        </Border>
+                      </Border>
+
+                      <Literal runat="server" ID="UseValueFromLiteral"  Style="height:24px" Padding="5 0 0 0"/>
+                      <asp:DropDownList ID="UseValueFromList" runat="server" GridPanel.Width="60%" Width="100%" Margin="0" onchange="javascript:return scForm.postEvent(this,event,'OnUseValueFromChanged',true)">
+                        <asp:ListItem runat="server" Value="0">
+                          Form Field
+                        </asp:ListItem>
+                        <asp:ListItem runat="server" Value="1" >
+                          CRM
+                        </asp:ListItem>
+                        <asp:ListItem runat="server" Value="2">
+                          Manual
+                        </asp:ListItem>
+                        <asp:ListItem runat="server" Value="3" >
+                          Previous Save Action
+                        </asp:ListItem>
+                      </asp:DropDownList>
+
+                      <Literal runat="server" ID="ValueLiteral" Style="height:24px" Padding="5 0 0 0"/>
+                      <Border runat="server" GridPanel.Width="65%" Width="100%" Margin="0">
+                        <Edit ID="CrmValueEditbox" runat="server" GridPanel.Width="100%" Width="100%"/>
+                        <asp:DropDownList ID="CrmValueList" Visible="false" runat="server" Width="100%"/>
+
+                        <asp:DropDownList ID="FormFieldList" runat="server" GridPanel.Width="60%" Width="100%" Margin="0"/>
+
+                        <asp:DropDownList ID="PreviousActionList" runat="server" GridPanel.Width="60%" Width="100%" Margin="0"/>
+
+                        <GridPanel runat="server" ID="LookupBorder" Width="100%" Columns="2" Style="display:none">
+                          <Edit ID="LookupValue" Disabled="true" runat="server" GridPanel.Width="100%" Width="100%"/>
+
+                          <Toolbutton ID="BrowseToolbutton" runat="server" Icon="Applications/16x16/view.png" Click="OnRunPicklistBrowser"/>
+
+                        </GridPanel>
+                      </Border>
+
+                      <Literal runat="server" ID="Description" Style="height:24px;color:#727272" Padding="5 0 0 0" />
+                      <Literal runat="server"  GridPanel.Width="65%" ID="Hint" Style="color:#727272"/>
+                    </GridPanel>
+
+                  </Border>
+                </Border>
+
+              </Border>
+            </td>
+          </tr>
+          <tr style="height: 100px; vertical-align: top">
+            <td colspan="2" style="vertical-align: top; padding: 5px">
+              <Groupbox Class="GroupBox" ID="UpdateExistingRecordsGroupbox" runat="server" style="width:auto;" Margin="0 9 0 3" Padding="5 0 0 0">
+                <Checkbox  ID="UpdateFieldsIfContainValue" Checked="false" Margin="10 3 0 2" runat="server" />
+                <GridPanel Class="EntryGrid" Columns="2" runat="server" Margin="10 0 10 0" Width="100%" Cellpadding="3">
+                  <Literal ID="SaveAuditInformationTo" runat="server" GridPanel.Align="right" Margin="0 4 0 5"/>
+                  <asp:DropDownList ID="AuditField" Width="100%" GridPanel.Width="100%" Margin="0 5 0 0" runat="server"/>
+                </GridPanel>
+              </Groupbox>
+            </td>
+          </tr>
+        </table>
+
+      </body>
+
+    </Sitecore.Controls.DialogPage>
+  </Sitecore.CrmCampaignIntegration.Shell.UI.Dialogs.CreateContact>
+
+</xamlControls>
