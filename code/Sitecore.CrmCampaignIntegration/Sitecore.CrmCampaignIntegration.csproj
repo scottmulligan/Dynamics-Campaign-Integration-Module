@@ -1,21 +1,98 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="14.0">
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <AssemblyName>Sitecore.CrmCampaignIntegration</AssemblyName>
     <PackageId>Sitecore.CrmCampaignIntegration</PackageId>
+    <ProjectGuid>{074BFF63-1F72-4263-BC40-E871C328E686}</ProjectGuid>
+    <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.4.6" />
-    <PackageReference Include="CRMSecurityProvider.NoReferences" Version="2.3.170118" />
-    <PackageReference Include="Sitecore.Kernel.NoReferences" Version="8.2.160729" />
-    <PackageReference Include="Sitecore.Client.NoReferences" Version="8.2.160729" />
-    <PackageReference Include="Sitecore.Forms.Core.NoReferences" Version="8.2.170807" />
-    <PackageReference Include="Sitecore.WFFM.Abstractions.NoReferences" Version="8.2.170807" />
-    <PackageReference Include="Sitecore.WFFM.Actions.NoReferences" Version="8.2.170807" />
-    <Reference Include="..\..\Lib\ComponentArt.Web.UI.dll" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <Reference Include="ComponentArt.Web.UI">
+      <HintPath>..\..\Lib\ComponentArt.Web.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="CRMSecurityProvider, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CRMSecurityProvider.NoReferences.2.3.170118\lib\NET452\CRMSecurityProvider.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.1.0.0\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Client, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Client.NoReferences.8.2.161221\lib\NET452\Sitecore.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Forms.Core, Version=8.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Forms.Core.NoReferences.8.2.161129\lib\NET452\Sitecore.Forms.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Kernel, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Kernel.8.2.161221\lib\NET452\Sitecore.Kernel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Logging, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Logging.8.2.161221\lib\NET452\Sitecore.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Logging.Client, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Logging.Client.8.2.161221\lib\NET452\Sitecore.Logging.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.NVelocity, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.NVelocity.8.2.161221\lib\NET452\Sitecore.NVelocity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.WFFM.Abstractions, Version=8.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.WFFM.Abstractions.NoReferences.8.2.161129\lib\NET452\Sitecore.WFFM.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.WFFM.Actions, Version=8.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.WFFM.Actions.NoReferences.8.2.161129\lib\NET452\Sitecore.WFFM.Actions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Zip, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Zip.8.2.161221\lib\NET452\Sitecore.Zip.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -27,5 +104,85 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="App_Config\Include\Sitecore.CrmCampaignIntegration.config" />
+    <None Include="App_Config\Include\Sitecore.CrmCampaignIntegration.config.example" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\Resource.Designer.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\AuthenticationType.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Configuration\ConfigKey.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Configuration\CrmRemoteSettings.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Configuration\FieldsIds.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Configuration\ResourcesManager.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Configuration\Settings.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\CrmBase.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\CrmEntity.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\CrmGate.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\CrmTicketManager.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\CustomCrm.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Expression.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Extension\AttributeMetadataExtensions.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Extension\ConditionExpressionExtensions.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Extension\DynamicEntityExtensions.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Extension\EntityMetadataExtensions.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Extension\FilterExpressionExtensions.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Extension\GridFilterExtensions.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Extension\PageCriteriaExtensions.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Extension\RetrieveMultipleResponseExtension.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Extension\SortCriteriaExtensions.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Filter.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\FormsCrmEntity.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Grid\ComponentArtGridHandler.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Grid\ISortedFilterable.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Grid\PageCriteria.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Grid\SortedFilterable.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\ITicketProvider.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\LiveIdTicketManager.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\LookupValue.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Pipeline\SetCustomCrmProperty\SetCustomCrmPropertyArgs.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Pipeline\SetSystemCrmProperty\SetStateAndStatusProperty.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Pipeline\SetSystemCrmProperty\SetSystemCrmPropertyArgs.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\PropertyFactory.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Services\CrmService.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Services\MetadataService.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Ticket.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Utility\DateUtil.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Utility\LocationUtil.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\Utility\Translate.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\ValueFromType.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\XCrmEntry.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Core\XCrmField.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Shell\Controls\Extensions\TreeViewExtensions.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Shell\Controls\Extensions\TreeViewNodeCollectionExtensions.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Shell\Controls\Extensions\TreeViewNodeExtensions.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Shell\Dialogs\Action Editor\Crm\CreateCrmEntityPage.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Shell\Dialogs\CrmEntitiesSortedFilterable.cs" />
+    <Compile Include="sitecore modules\shell\CrmCampaignIntegration\Shell\Dialogs\LookupRecordsPage.cs" />
+    <Compile Include="sitecore modules\web\CrmCampaignIntegration\Actions\Save\CreateBusinessEntity.cs" />
+    <Compile Include="sitecore modules\web\CrmCampaignIntegration\Actions\Save\CreateCrmEntity.cs" />
+    <Compile Include="sitecore modules\web\CrmCampaignIntegration\Actions\Save\CreateCrmEntityBase.cs" />
+    <Compile Include="sitecore modules\web\CrmCampaignIntegration\Actions\Save\CreateDynamicEntity.cs" />
+    <Compile Include="sitecore modules\web\CrmCampaignIntegration\Actions\Save\CrmEntityExtension.cs" />
+    <Compile Include="Web References\CrmDiscoveryService.cs" />
+    <Compile Include="Web References\CrmMetadataService.cs" />
+    <Compile Include="Web References\CrmService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="sitecore\shell\Applications\Modules\Web Forms for Marketers\Dialogs\Action Editor\Crm\CreateAccount.xaml.xml" />
+    <Content Include="sitecore\shell\Applications\Modules\Web Forms for Marketers\Dialogs\Action Editor\Crm\CreateContact.xaml.xml" />
+    <Content Include="sitecore\shell\Applications\Modules\Web Forms for Marketers\Dialogs\Action Editor\Crm\CreateCRMEntity.xaml.xml" />
+    <Content Include="sitecore\shell\Applications\Modules\Web Forms for Marketers\Dialogs\Crm\LookupRecords.xaml.xml" />
+    <Content Include="sitecore\shell\Applications\Modules\Web Forms for Marketers\images\crm.ico" />
+    <Content Include="sitecore\shell\Applications\Modules\Web Forms for Marketers\images\crm16x16.png" />
+    <Content Include="sitecore\shell\Applications\Modules\Web Forms for Marketers\images\crm32x32.png" />
+    <Content Include="sitecore\shell\Applications\Modules\Web Forms for Marketers\script\DynamicsCrm.CampaignIntegration.js" />
+    <Content Include="sitecore\shell\Themes\Standard\Default\WFM\CrmDialogs.css" />
   </ItemGroup>
 </Project>
